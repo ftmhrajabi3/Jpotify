@@ -7,11 +7,12 @@ public class North extends JPanel {
 
     public North() {
         JLabel label = new JLabel("Search : ");
-        JTextField jTextField=new JTextField(5);
-        GridBagLayout ly=new GridBagLayout();
+       // JTextField jTextField=new JTextField(1);
+        GridLayout ly = new GridLayout();
         label.setVisible(true);
-        this.setLayout(new FlowLayout());
-        this.setLayout(ly);
+//        setLayout(new FlowLayout(1));
+        setLayout(ly);
+
 
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -26,7 +27,6 @@ public class North extends JPanel {
         gbc.gridheight=5;
         gbc.weightx=1;
         this.add(search , gbc );
-
 
     }
 }

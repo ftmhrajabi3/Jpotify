@@ -19,7 +19,6 @@ public class WestPanel extends JScrollPane {
         JButton addMusic = new JButton("addMusic");
         mainPanel.add(addMusic , gbc);
 
-        JPanel Library=new JPanel();
         JButton jButton=new JButton("Library");
 
 //        jButton.enable(false);
@@ -44,11 +43,6 @@ public class WestPanel extends JScrollPane {
         gbc.gridx=0;
         gbc.gridy=4;
         mainPanel.add(PlayList,gbc);
-
-        JButton PlayList1=new JButton("PlayList11111");
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        mainPanel.add(PlayList1,gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipady = 0;       //reset to default
