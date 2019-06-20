@@ -14,8 +14,14 @@ public class WestPanel extends JScrollPane {
         setViewportView(mainPanel);
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
+
         gbc.gridx = 0;
         gbc.gridy = 0;
+        JButton Home = new JButton("Home");
+        mainPanel.add(Home , gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         JButton addMusic = new JButton("addMusic");
         mainPanel.add(addMusic , gbc);
 
@@ -24,24 +30,24 @@ public class WestPanel extends JScrollPane {
 //        jButton.enable(false);
 
         gbc.gridx=0;
-        gbc.gridy=1;
+        gbc.gridy=2;
         mainPanel.add(jButton,gbc);
 
         JButton Albums=new JButton("Alubms");
         gbc.gridx=0;
-        gbc.gridy=2;
+        gbc.gridy=3;
         mainPanel.add(Albums,gbc);
 
 
         JButton Songs=new JButton("Songs");
         gbc.gridx=0;
-        gbc.gridy=3;
+        gbc.gridy=4;
         mainPanel.add(Songs,gbc);
 
 
         JButton PlayList=new JButton("PlayList");
         gbc.gridx=0;
-        gbc.gridy=4;
+        gbc.gridy=5;
         mainPanel.add(PlayList,gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
