@@ -45,7 +45,6 @@ public class HomePage extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtSongSearch;
 	private String filePath;
-	private Play play;
 	
 
 	/**
