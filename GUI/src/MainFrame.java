@@ -106,6 +106,24 @@ public class MainFrame extends JFrame {
 		separator_3.setBounds(3, 534, 1130, 5);
 		contentPane.add(separator_3);
 		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu addMenu = new JMenu("New");
+		menuBar.add(addMenu);
+		
+		JMenuItem addSong = new JMenuItem("Add Song");
+		addMenu.add(addSong);
+		
+		JMenuItem addPlaylist = new JMenuItem("Add Playlist");
+		addMenu.add(addPlaylist);
+		
+		JMenu userMenu = new JMenu("User Info");
+		menuBar.add(userMenu);
+		
+		JMenuItem findFriend = new JMenuItem("Find Friend");
+		userMenu.add(findFriend);
+		
 		JScrollBar scrollBar = new JScrollBar();
 		scrollBar.setBounds(140, 34, 10, 500);
 		contentPane.add(scrollBar);
@@ -119,6 +137,7 @@ public class MainFrame extends JFrame {
 		contentPane.add(btnLibrary);
 		
 		JButton btnPlay = new JButton("Album");
+		btnPlay.setBounds(26, 113, 85, 21);
 		contentPane.add(btnPlay);
 		
 		JButton btnNewButton = new JButton("");
