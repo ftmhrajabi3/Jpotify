@@ -62,7 +62,7 @@ public class SignUp {
 	    frame.add(password);
 	    frame.add(signUpButton);
 	    frame.setVisible(true);
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    
 	}
 }
