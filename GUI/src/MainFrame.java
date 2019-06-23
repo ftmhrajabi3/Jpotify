@@ -35,6 +35,7 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtSongSearch;
+	private String filePath;
 	
 
 	/**
@@ -113,6 +114,18 @@ public class MainFrame extends JFrame {
 		menuBar.add(addMenu);
 		
 		JMenuItem addSong = new JMenuItem("Add Song");
+		addSong.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("WAV Audio", "wav");
+				fileChooser.setFileFilter(filter);
+				int i = fileChooser.showOpenDialog(MainFrame.this);
+				if(i == JFileChooser.APPROVE_OPTION)
+					filePath = fileChooser.getSelectedFile().getPath();
+			}
+		});
 		addMenu.add(addSong);
 		
 		JMenuItem addPlaylist = new JMenuItem("Add Playlist");
@@ -137,6 +150,10 @@ public class MainFrame extends JFrame {
 		contentPane.add(btnLibrary);
 		
 		JButton btnPlay = new JButton("Album");
+		btnPlay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnPlay.setBounds(26, 113, 85, 21);
 		contentPane.add(btnPlay);
 		
