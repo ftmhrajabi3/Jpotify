@@ -6,10 +6,19 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -23,11 +32,11 @@ import javax.swing.JScrollBar;
 import javax.swing.JToggleButton;
 import javax.swing.JSlider;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
-public class MainFrame extends JFrame {
+public class HomePage extends JFrame {
 
 	/**
 	 * 
@@ -46,7 +55,7 @@ public class MainFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainFrame frame = new MainFrame();
+					HomePage frame = new HomePage();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,7 +67,7 @@ public class MainFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame() {
+	public HomePage() {
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\Java Codes\\Project\\Spotify.jpg"));
 		setTitle("Jpotify");
@@ -122,7 +131,7 @@ public class MainFrame extends JFrame {
 				JFileChooser fileChooser = new JFileChooser();
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("WAV Audio", "wav");
 				fileChooser.setFileFilter(filter);
-				int i = fileChooser.showOpenDialog(MainFrame.this);
+				int i = fileChooser.showOpenDialog(HomePage.this);
 				if(i == JFileChooser.APPROVE_OPTION)
 					filePath = fileChooser.getSelectedFile().getPath();
 			}
@@ -176,13 +185,38 @@ public class MainFrame extends JFrame {
 		btnNewButton.setIcon(new ImageIcon("D:\\Java Codes\\Practice\\images\\Play.gif"));
 		btnNewButton.setBounds(534, 539, 26, 27);
 		btnNewButton.addActionListener(new ActionListener() {
-			
+			Clip clip;
+			int lastFrame;
 			public void actionPerformed(ActionEvent e) {
-				if((play == null) || !(play.getFilePath().equals(filePath)))
-					play = new Play(filePath);
-				else
-					play.continueSong();
-			}
+				if(clip == null && filePath == null)
+					JOptionPane.showMessageDialog(new JFrame(), "You haven't choosen a file yet.");
+				else if (clip == null) {
+                    try {
+                        AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File(filePath));
+                        AudioFormat format = audioStream.getFormat();
+                        DataLine.Info info = new DataLine.Info(Clip.class, format);
+                        clip = (Clip) AudioSystem.getLine(info);
+                        clip.open(audioStream);
+                        clip.start();
+                    } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(new JFrame(), "Failed to load audio clip", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+
+                    if (clip.isRunning()) {
+                        lastFrame = clip.getFramePosition();
+                        clip.stop();
+                    } else {
+                        if (lastFrame < clip.getFrameLength()) {
+                            clip.setFramePosition(lastFrame);
+                        } else {
+                            clip.setFramePosition(0);
+                        }
+                        clip.start();
+                    }
+
+                }}
 		});
 		contentPane.add(btnNewButton);
 		
@@ -199,17 +233,5 @@ public class MainFrame extends JFrame {
 		JToggleButton tglbtnPlaylist = new JToggleButton("Playlist");
 		tglbtnPlaylist.setBounds(26, 144, 85, 21);
 		contentPane.add(tglbtnPlaylist);
-		
-		JButton button = new JButton("");
-		button.setIcon(new ImageIcon("D:\\Java Codes\\Practice\\images\\Pause.png"));
-		button.setBounds(560, 539, 27, 26);
-		button.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				play.stopSong();
-			}
-		});
-		contentPane.add(button);
 	}
 }
