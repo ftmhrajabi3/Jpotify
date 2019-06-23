@@ -141,6 +141,14 @@ public class MainFrame extends JFrame {
 		menuBar.add(userMenu);
 		
 		JMenuItem findFriend = new JMenuItem("Find Friend");
+findFriend.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new FindFriend();
+				
+			}
+		});
 		userMenu.add(findFriend);
 		
 		JScrollBar scrollBar = new JScrollBar();
