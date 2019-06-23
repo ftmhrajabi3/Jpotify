@@ -36,6 +36,7 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtSongSearch;
 	private String filePath;
+	private Play play;
 	
 
 	/**
@@ -129,19 +130,19 @@ public class MainFrame extends JFrame {
 		addMenu.add(addSong);
 		
 		JMenuItem addPlaylist = new JMenuItem("Add Playlist");
+		addMenu.add(addPlaylist);
 		addPlaylist.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new AddPlaylist();
 			}
 		});
-		addMenu.add(addPlaylist);
 		
 		JMenu userMenu = new JMenu("User Info");
 		menuBar.add(userMenu);
 		
 		JMenuItem findFriend = new JMenuItem("Find Friend");
-findFriend.addActionListener(new ActionListener() {
+		findFriend.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -174,6 +175,15 @@ findFriend.addActionListener(new ActionListener() {
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setIcon(new ImageIcon("D:\\Java Codes\\Practice\\images\\Play.gif"));
 		btnNewButton.setBounds(534, 539, 26, 27);
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				if((play == null) || !(play.getFilePath().equals(filePath)))
+					play = new Play(filePath);
+				else
+					play.continueSong();
+			}
+		});
 		contentPane.add(btnNewButton);
 		
 		JSlider slider = new JSlider();
@@ -193,6 +203,13 @@ findFriend.addActionListener(new ActionListener() {
 		JButton button = new JButton("");
 		button.setIcon(new ImageIcon("D:\\Java Codes\\Practice\\images\\Pause.png"));
 		button.setBounds(560, 539, 27, 26);
+		button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				play.stopSong();
+			}
+		});
 		contentPane.add(button);
 	}
 }
