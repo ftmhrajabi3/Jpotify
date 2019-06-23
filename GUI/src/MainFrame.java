@@ -129,6 +129,12 @@ public class MainFrame extends JFrame {
 		addMenu.add(addSong);
 		
 		JMenuItem addPlaylist = new JMenuItem("Add Playlist");
+		addPlaylist.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new AddPlaylist();
+			}
+		});
 		addMenu.add(addPlaylist);
 		
 		JMenu userMenu = new JMenu("User Info");
