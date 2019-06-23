@@ -179,24 +179,38 @@ public class HomePage extends JFrame {
 		});
 		btnPlay.setBounds(26, 113, 85, 21);
 		contentPane.add(btnPlay);
+
+		JLabel label = new JLabel("00:00:00");
+		label.setBounds(331, 578, 46, 13);
+		contentPane.add(label);
+		
+		JSlider slider = new JSlider();
+		slider.setValue(0);
+		slider.setBackground(Color.PINK);
+		slider.setBounds(405, 569, 289, 22);
+		contentPane.add(slider);
 		
 		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon("D:\\Java Codes\\Practice\\images\\Play.gif"));
+		btnNewButton.setIcon(new ImageIcon("D:\\Java Codes\\images\\Play.gif"));
 		btnNewButton.setBounds(534, 539, 26, 27);
 		btnNewButton.addActionListener(new ActionListener() {
 			Clip clip;
 			int lastFrame;
+			PlayingTimer timer;
 			public void actionPerformed(ActionEvent e) {
 				if(clip == null && filePath == null)
 					JOptionPane.showMessageDialog(new JFrame(), "You haven't choosen a file yet.");
 				else if (clip == null) {
+					timer = new PlayingTimer(label, slider); 
                     try {
                         AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File(filePath));
                         AudioFormat format = audioStream.getFormat();
                         DataLine.Info info = new DataLine.Info(Clip.class, format);
                         clip = (Clip) AudioSystem.getLine(info);
                         clip.open(audioStream);
+                        timer.setAudioClip(clip);
                         clip.start();
+                        timer.start();
                     } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
                         ex.printStackTrace();
                         JOptionPane.showMessageDialog(new JFrame(), "Failed to load audio clip", "Error", JOptionPane.ERROR_MESSAGE);
@@ -205,12 +219,15 @@ public class HomePage extends JFrame {
 
                     if (clip.isRunning()) {
                         lastFrame = clip.getFramePosition();
+                        timer.pauseTimer();
                         clip.stop();
                     } else {
-                        if (lastFrame < clip.getFrameLength()) {
+                        if (lastFrame < clip.getFrameLength()) {                        	
+                            timer.resumeTimer();
                             clip.setFramePosition(lastFrame);
                         } else {
                             clip.setFramePosition(0);
+                            timer.reset();
                         }
                         clip.start();
                     }
@@ -219,12 +236,6 @@ public class HomePage extends JFrame {
 		});
 		contentPane.add(btnNewButton);
 		
-		JSlider slider = new JSlider();
-		slider.setValue(0);
-		slider.setBackground(Color.PINK);
-		slider.setBounds(405, 569, 289, 22);
-		contentPane.add(slider);
-		
 		JSlider slider_1 = new JSlider();
 		slider_1.setBounds(1037, 566, 85, 15);
 		contentPane.add(slider_1);
@@ -232,5 +243,6 @@ public class HomePage extends JFrame {
 		JToggleButton tglbtnPlaylist = new JToggleButton("Playlist");
 		tglbtnPlaylist.setBounds(26, 144, 85, 21);
 		contentPane.add(tglbtnPlaylist);
+		
 	}
 }
