@@ -36,7 +36,7 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 
-public class HomePage extends JFrame {
+public class MainFrame extends JFrame {
 
 	/**
 	 * 
@@ -54,7 +54,7 @@ public class HomePage extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HomePage frame = new HomePage();
+					MainFrame frame = new MainFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,7 +66,7 @@ public class HomePage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public HomePage() {
+	public MainFrame() {
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\Java Codes\\Project\\Spotify.jpg"));
 		setTitle("Jpotify");
@@ -130,7 +130,7 @@ public class HomePage extends JFrame {
 				JFileChooser fileChooser = new JFileChooser();
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("WAV Audio", "wav");
 				fileChooser.setFileFilter(filter);
-				int i = fileChooser.showOpenDialog(HomePage.this);
+				int i = fileChooser.showOpenDialog(MainFrame.this);
 				if(i == JFileChooser.APPROVE_OPTION)
 					filePath = fileChooser.getSelectedFile().getPath();
 			}
